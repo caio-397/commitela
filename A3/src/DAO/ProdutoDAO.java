@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class AlunoDAO {
+public class ProdutoDAO {
 
     public static ArrayList<Produto> MinhaLista = new ArrayList<Produto>();
 
-    public AlunoDAO() {
+    public ProdutoDAO() {
 }
 
     public int maiorID() throws SQLException {
@@ -70,7 +70,7 @@ public class AlunoDAO {
         }
     }
 
-    // Retorna a Lista de Alunos(objetos)
+    // Retorna a Lista de produtos(objetos)
     public ArrayList getMinhaLista() {
         
         MinhaLista.clear(); // Limpa nosso ArrayList
@@ -100,8 +100,8 @@ public class AlunoDAO {
         return MinhaLista;
     }
 
-    // Cadastra novo aluno
-    public boolean InsertAlunoBD(Produto objeto) {
+    // Cadastra novo produto
+    public boolean InsertProdutoBD(Produto objeto) {
         String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data) VALUES(?,?,?,?,?,?)";
 
         try {
@@ -125,8 +125,8 @@ public class AlunoDAO {
 
     }
 
-    // Deleta um aluno espec�fico pelo seu campo ID
-    public boolean DeleteAlunoBD(int id) {
+    // Deleta um produto espec�fico pelo seu campo ID
+    public boolean DeleteProdutoBD(int id) {
         try {
             Statement stmt = this.getConexao().createStatement();
             stmt.executeUpdate("DELETE FROM tb_produtos WHERE id = " + id);
@@ -138,8 +138,8 @@ public class AlunoDAO {
         return true;
     }
 
-    // Edita um aluno espec�fico pelo seu campo ID
-    public boolean UpdateAlunoBD(Produto objeto) {
+    // Edita um produto espec�fico pelo seu campo ID
+    public boolean UpdateProdutoBD(Produto objeto) {
 
         String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data = ? WHERE id = ?";
 
@@ -164,7 +164,7 @@ public class AlunoDAO {
 
     }
 
-    public Produto carregaAluno(int id) {
+    public Produto carregaProduto(int id) {
         
         Produto objeto = new Produto();
         objeto.setId(id);

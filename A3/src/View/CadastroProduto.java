@@ -8,11 +8,11 @@ import javax.swing.JOptionPane;
 
 public class CadastroProduto extends javax.swing.JFrame {
 
-    private Produto objaluno; // cria o v�nculo com o Produto.java
+    private Produto objproduto; // cria o v�nculo com o Produto.java
 
     public CadastroProduto() {
         initComponents();
-        this.objaluno = new Produto(); // carrega objeto vazio de aluno
+        this.objproduto = new Produto(); // carrega objeto vazio de aluno
     }
 
     /**
@@ -243,8 +243,8 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
 
             // envia os dados para o Controlador cadastrar
-            if (this.objaluno.InsertAlunoBD(quantidade, preco, nome, descricao, data)) {
-                JOptionPane.showMessageDialog(rootPane, "Aluno Cadastrado com Sucesso!");
+            if (this.objproduto.InsertProdutoBD(quantidade, preco, nome, descricao, data)) {
+                JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado com Sucesso!");
 
                 // limpa campos da interface
                 this.c_nome.setText("");
@@ -255,7 +255,7 @@ public class CadastroProduto extends javax.swing.JFrame {
 
             }
 
-            System.out.println(this.objaluno.getMinhaLista().toString());
+            System.out.println(this.objproduto.getMinhaLista().toString());
 
         } catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());

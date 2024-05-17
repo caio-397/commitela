@@ -1,7 +1,7 @@
 package Model;
 
 import java.util.*;
-import DAO.AlunoDAO;
+import DAO.ProdutoDAO;
 import java.sql.SQLException;
 
 public class Produto extends Pessoa {
@@ -10,11 +10,11 @@ public class Produto extends Pessoa {
     private int quantidade;
     private double preco;
     private String data;
-    private final AlunoDAO dao; 
+    private final ProdutoDAO dao; 
 
     // M�todo Construtor de Objeto Vazio
     public Produto() {
-        this.dao = new AlunoDAO(); // inicializado n�o importa em qual construtor
+        this.dao = new ProdutoDAO(); // inicializado n�o importa em qual construtor
     }
 
     // M�todo Construtor de Objeto, inserindo dados
@@ -22,7 +22,7 @@ public class Produto extends Pessoa {
         this.quantidade = quantidade;
         this.preco = preco;
         this.data = data;
-        this.dao = new AlunoDAO(); // inicializado n�o importa em qual construtor
+        this.dao = new ProdutoDAO(); // inicializado n�o importa em qual construtor
     }
 
     // M�todo Construtor usando tamb�m o construtor da SUPERCLASSE
@@ -31,7 +31,7 @@ public class Produto extends Pessoa {
         this.quantidade = quantidade;
         this.preco = preco;
         this.data = data;
-        this.dao = new AlunoDAO(); // inicializado n�o importa em qual construtor
+        this.dao = new ProdutoDAO(); // inicializado n�o importa em qual construtor
     }
 
     // M�todos GET e SET
@@ -59,7 +59,7 @@ public class Produto extends Pessoa {
     }
     
 
-    // Override necess�rio para poder retornar os dados de Pessoa no toString para aluno.
+    // Override necess�rio para poder retornar os dados de Pessoa no toString para produto.
     @Override
     public String toString() {
         return "\n ID: " + this.getId()
@@ -77,63 +77,63 @@ public class Produto extends Pessoa {
         SIMULANDO A ESTRUTURA EM CAMADAS PARA USAR COM BANCOS DE DADOS.
     
      */
-    // Retorna a Lista de Alunos(objetos)
+    // Retorna a Lista de Produto(objetos)
     public ArrayList getMinhaLista() {
-        //return AlunoDAO.MinhaLista;
+        //return ProdutoDAO.MinhaLista;
         return dao.getMinhaLista();
     }
 
-    // Cadastra novo aluno
-//    public boolean InsertAlunoBD(String curso, int fase, String nome, int idade) {
-    public boolean InsertAlunoBD(int quantidade, double preco, String nome, String descricao, String data) throws SQLException {
+    // Cadastra novo Produto
+//    public boolean InsertProdutoBD(String curso, int fase, String nome, int idade) {
+    public boolean InsertProdutoBD(int quantidade, double preco, String nome, String descricao, String data) throws SQLException {
         int id = this.maiorID() + 1;
         Produto objeto = new Produto(quantidade, preco, id, nome, descricao, data);
-//        AlunoDAO.MinhaLista.add(objeto);
-        dao.InsertAlunoBD(objeto);
+//        ProdutoDAO.MinhaLista.add(objeto);
+        dao.InsertProdutoBD(objeto);
         return true;
 
     }
 
-    // Deleta um aluno espec�fico pelo seu campo ID
-    public boolean DeleteAlunoBD(int id) {
+    // Deleta um Produto espec�fico pelo seu campo ID
+    public boolean DeleteProdutoBD(int id) {
 //        int indice = this.procuraIndice(id);
-//        AlunoDAO.MinhaLista.remove(indice);
-        dao.DeleteAlunoBD(id);
+//        ProdutoDAO.MinhaLista.remove(indice);
+        dao.DeleteProdutoBD(id);
         return true;
     }
 
-    // Edita um aluno espec�fico pelo seu campo ID
-    public boolean UpdateAlunoBD(int quantidade, double preco, int id, String nome, String descricao, String data) {
+    // Edita um Produto espec�fico pelo seu campo ID
+    public boolean UpdateProdutoBD(int quantidade, double preco, int id, String nome, String descricao, String data) {
         Produto objeto = new Produto(quantidade, preco, id, nome, descricao, data);
 //        int indice = this.procuraIndice(id);
-//        AlunoDAO.MinhaLista.set(indice, objeto);
-        dao.UpdateAlunoBD(objeto);
+//        ProdutoDAO.MinhaLista.set(indice, objeto);
+        dao.UpdateProdutoBD(objeto);
         return true;
     }
 
     // procura o INDICE de objeto da MinhaLista que contem o ID enviado.
 //    private int procuraIndice(int id) {
 //        int indice = -1;
-//        for (int i = 0; i < AlunoDAO.MinhaLista.size(); i++) {
-//            if (AlunoDAO.MinhaLista.get(i).getId() == id) {
+//        for (int i = 0; i < ProdutoDAO.MinhaLista.size(); i++) {
+//            if (ProdutoDAO.MinhaLista.get(i).getId() == id) {
 //                indice = i;
 //            }
 //        }
 //        return indice;
 //    }
 
-    // carrega dados de um aluno espec�fico pelo seu ID
-    public Produto carregaAluno(int id) {
+    // carrega dados de um Produto espec�fico pelo seu ID
+    public Produto carregaProduto(int id) {
 //        int indice = this.procuraIndice(id);
-//        return AlunoDAO.MinhaLista.get(indice);
-        dao.carregaAluno(id);
+//        return ProdutoDAO.MinhaLista.get(indice);
+        dao.carregaProduto(id);
         return null;
     }
     
     // retorna o maior ID da nossa base de dados
         public int maiorID() throws SQLException{
 //    public int maiorID(){
-//        return AlunoDAO.maiorID();
+//        return ProdutoDAO.maiorID();
         return dao.maiorID();
     }   
 }
