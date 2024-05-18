@@ -11,6 +11,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
 
     public GerenciaProduto() {
         initComponents();
+        jTableProduto.setAutoCreateRowSorter(true);//ordena tabela
         this.objproduto = new Produto(); // carrega objproduto de produto
         this.carregaTabela();
     }
@@ -58,9 +59,16 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 "ID", "Nome", "Descricao", "Quatidade", "Preço", "Data"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
