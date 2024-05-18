@@ -243,7 +243,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
 
             // envia os dados para o Controlador cadastrar
-            if (this.objaluno.InsertAlunoBD(quantidade, preco, nome, descricao, data)) {
+            if (this.objaluno.InsertAlunoBD(nome, descricao, quantidade, preco,  data)) {
                 JOptionPane.showMessageDialog(rootPane, "Aluno Cadastrado com Sucesso!");
 
                 // limpa campos da interface

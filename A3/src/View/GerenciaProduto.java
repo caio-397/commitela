@@ -249,7 +249,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
             }
             
             // envia os dados para o Produto processar
-            if (this.objaluno.UpdateAlunoBD(quantidade, preco, id, nome, descricao, data)) {
+            if (this.objaluno.UpdateAlunoBD(id, nome, descricao, quantidade, preco, data)) {
 
                 // limpa os campos
                 this.c_nome.setText("");
@@ -347,7 +347,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
         modelo.setNumRows(0);
 
         ArrayList<Produto> minhalista = new ArrayList<>();
-        minhalista = objaluno.getMinhaLista();
+        minhalista = this.objaluno.getMinhaLista();
 
         for (Produto a : minhalista) {
             modelo.addRow(new Object[]{
