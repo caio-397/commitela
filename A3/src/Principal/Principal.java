@@ -8,8 +8,5 @@ public class Principal {
         TelaLogin objetotela = new TelaLogin();
         objetotela.setVisible(true);
     }
-    //oii bom dia
-    //
-    //
-    //
+ 
 }

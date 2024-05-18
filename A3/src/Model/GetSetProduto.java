@@ -1,24 +1,24 @@
 package Model;
 
-public abstract class Pessoa {
+public abstract class GetSetProduto {
 
-    // Atributos
+   
     private int id;
     private String nome;
     private String descricao;
 
-    // M�todo Construtor de Objeto Vazio
-    public Pessoa() {
+    
+    public GetSetProduto() {
     }
 
-    // M�todo Construtor de Objeto, inserindo dados
-    public Pessoa(int id, String nome, String descricao) {
+    
+    public GetSetProduto(int id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    // M�todos GET e SET
+    
     public int getId() {
         return id;
     }

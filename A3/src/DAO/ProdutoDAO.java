@@ -1,6 +1,6 @@
 package DAO;
 
-import Model.Produto;
+import Model.ThisProduto;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class AlunoDAO {
+public class ProdutoDAO {
 
-    public static ArrayList<Produto> MinhaLista = new ArrayList<Produto>();
+    public static ArrayList<ThisProduto> MinhaLista = new ArrayList<ThisProduto>();
 
-    public AlunoDAO() {
+    public ProdutoDAO() {
 }
 
     public int maiorID() throws SQLException {
@@ -35,32 +35,30 @@ public class AlunoDAO {
 
     public Connection getConexao() {
 
-        Connection connection = null;  //inst�ncia da conex�o
+        Connection connection = null; 
 
         try {
 
-            // Carregamento do JDBC Driver
+            
             String driver = "com.mysql.cj.jdbc.Driver";
             Class.forName(driver);
-            // Configurar a conex�o
-            String server = "localhost"; //caminho do MySQL
+            String server = "localhost"; 
             String database = "cometela";
             String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
             String user = "root";
-            String password = "arthur88coelho";
+            String password = "LQdevtbtc1503.";
 
             connection = DriverManager.getConnection(url, user, password);
 
-            // Testando..
             if (connection != null) {
                 System.out.println("Status: Conectado!");
             } else {
-                System.out.println("Status: N�O CONECTADO!");
+                System.out.println("Status: NãO CONECTADO!");
             }
 
             return connection;
 
-        } catch (ClassNotFoundException e) {  //Driver n�o encontrado
+        } catch (ClassNotFoundException e) {  
             System.out.println("O driver nao foi encontrado. " + e.getMessage() );
             return null;
 
@@ -70,10 +68,10 @@ public class AlunoDAO {
         }
     }
 
-    // Retorna a Lista de Alunos(objetos)
+    
     public ArrayList getMinhaLista() {
         
-        MinhaLista.clear(); // Limpa nosso ArrayList
+        MinhaLista.clear(); 
 
         try {
             Statement stmt = this.getConexao().createStatement();
@@ -86,8 +84,9 @@ public class AlunoDAO {
                 String nome = res.getString("nome");
                 String descricao = res.getString("descricao");
                 String data = res.getString("data");
+                double total = res.getDouble("total");
 
-                Produto objeto = new Produto(quantidade, preco, id, nome, descricao, data);
+                ThisProduto objeto = new ThisProduto(quantidade, preco, id, nome, descricao, data, total);
 
                 MinhaLista.add(objeto);
             }
@@ -100,9 +99,8 @@ public class AlunoDAO {
         return MinhaLista;
     }
 
-    // Cadastra novo aluno
-    public boolean InsertAlunoBD(Produto objeto) {
-        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data) VALUES(?,?,?,?,?,?)";
+    public boolean InsertProdutoBD(ThisProduto objeto) {
+        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data,total) VALUES(?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -113,6 +111,7 @@ public class AlunoDAO {
             stmt.setInt(4, objeto.getQuantidade());
             stmt.setDouble(5, objeto.getPreco());
             stmt.setString(6, objeto.getData());
+            stmt.setDouble(7, objeto.getTotal());
 
             stmt.execute();
             stmt.close();
@@ -125,8 +124,7 @@ public class AlunoDAO {
 
     }
 
-    // Deleta um aluno espec�fico pelo seu campo ID
-    public boolean DeleteAlunoBD(int id) {
+    public boolean DeleteProdutoBD(int id) {
         try {
             Statement stmt = this.getConexao().createStatement();
             stmt.executeUpdate("DELETE FROM tb_produtos WHERE id = " + id);
@@ -137,11 +135,10 @@ public class AlunoDAO {
         
         return true;
     }
+    
+    public boolean UpdateProdutoBD(ThisProduto objeto) {
 
-    // Edita um aluno espec�fico pelo seu campo ID
-    public boolean UpdateAlunoBD(Produto objeto) {
-
-        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data = ? WHERE id = ?";
+        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data = ? , total = ?, WHERE id = ?";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -152,6 +149,7 @@ public class AlunoDAO {
             stmt.setDouble(4, objeto.getPreco());
             stmt.setString(5, objeto.getData());
             stmt.setInt(6, objeto.getId());
+            stmt.setDouble(7, objeto.getTotal());
 
             stmt.execute();
             stmt.close();
@@ -164,9 +162,9 @@ public class AlunoDAO {
 
     }
 
-    public Produto carregaAluno(int id) {
+    public ThisProduto carregaProduto(int id) {
         
-        Produto objeto = new Produto();
+        ThisProduto objeto = new ThisProduto();
         objeto.setId(id);
         
         try {
@@ -179,6 +177,7 @@ public class AlunoDAO {
             objeto.setQuantidade(res.getInt("quantidade"));
             objeto.setPreco(res.getDouble("preco"));
             objeto.setData(res.getString("data"));
+            objeto.setTotal(res.getDouble("total"));
 
             stmt.close();            
             
