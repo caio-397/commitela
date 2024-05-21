@@ -39,15 +39,15 @@ public class ProdutoDAO {
 
         try {
 
-            // Carregamento do JDBC Driver
+            
             String driver = "com.mysql.cj.jdbc.Driver";
             Class.forName(driver);
-            // Configurar a conex�o
-            String server = "localhost"; //caminho do MySQL
+            
+            String server = "localhost"; 
             String database = "cometela";
             String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
             String user = "root";
-            String password = "arthur88coelho";
+            String password = "LQdevtbtc1503.";
 
             connection = DriverManager.getConnection(url, user, password);
 
@@ -55,12 +55,12 @@ public class ProdutoDAO {
             if (connection != null) {
                 System.out.println("Status: Conectado!");
             } else {
-                System.out.println("Status: N�O CONECTADO!");
+                System.out.println("Status: NÃO CONECTADO!");
             }
 
             return connection;
 
-        } catch (ClassNotFoundException e) {  //Driver n�o encontrado
+        } catch (ClassNotFoundException e) {  
             System.out.println("O driver nao foi encontrado. " + e.getMessage() );
             return null;
 
@@ -70,10 +70,10 @@ public class ProdutoDAO {
         }
     }
 
-    // Retorna a Lista de produtos(objetos)
+    
     public ArrayList getMinhaLista() {
         
-        MinhaLista.clear(); // Limpa nosso ArrayList
+        MinhaLista.clear(); 
 
         try {
             Statement stmt = this.getConexao().createStatement();
@@ -86,8 +86,9 @@ public class ProdutoDAO {
                 String nome = res.getString("nome");
                 String descricao = res.getString("descricao");
                 String data = res.getString("data");
+                double total = res.getDouble("total");
 
-                Produto objeto = new Produto(quantidade, preco, id, nome, descricao, data);
+                Produto objeto = new Produto(quantidade, preco, id, nome, descricao, data, total);
 
                 MinhaLista.add(objeto);
             }
@@ -100,9 +101,9 @@ public class ProdutoDAO {
         return MinhaLista;
     }
 
-    // Cadastra novo produto
+   
     public boolean InsertProdutoBD(Produto objeto) {
-        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data,total) VALUES(?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -113,6 +114,7 @@ public class ProdutoDAO {
             stmt.setInt(4, objeto.getQuantidade());
             stmt.setDouble(5, objeto.getPreco());
             stmt.setString(6, objeto.getData());
+            stmt.setDouble(7, objeto.getTotal());
 
             stmt.execute();
             stmt.close();
@@ -125,7 +127,7 @@ public class ProdutoDAO {
 
     }
 
-    // Deleta um produto espec�fico pelo seu campo ID
+    
     public boolean DeleteProdutoBD(int id) {
         try {
             Statement stmt = this.getConexao().createStatement();
@@ -138,10 +140,10 @@ public class ProdutoDAO {
         return true;
     }
 
-    // Edita um produto espec�fico pelo seu campo ID
+    
     public boolean UpdateProdutoBD(Produto objeto) {
 
-        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data = ? WHERE id = ?";
+        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data = ?, total = ? WHERE id = ?";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -152,6 +154,7 @@ public class ProdutoDAO {
             stmt.setDouble(4, objeto.getPreco());
             stmt.setString(5, objeto.getData());
             stmt.setInt(6, objeto.getId());
+            stmt.setDouble(7, objeto.getTotal());
 
             stmt.execute();
             stmt.close();
@@ -179,6 +182,7 @@ public class ProdutoDAO {
             objeto.setQuantidade(res.getInt("quantidade"));
             objeto.setPreco(res.getDouble("preco"));
             objeto.setData(res.getString("data"));
+            objeto.setTotal(res.getDouble("total"));
 
             stmt.close();            
             
