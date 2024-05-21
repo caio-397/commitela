@@ -89,6 +89,10 @@ public class Produto {
     public ArrayList getMinhaLista() {
         return dao.getMinhaLista();
     }
+    
+     public ArrayList getMinhaListaOrderBy(String orderBy) {
+        return dao.getMinhaListaOrderBy(orderBy);
+    }
 
     public boolean InsertAlunoBD(
             String nome,

@@ -1,24 +1,95 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
 
+import Model.Produto;
+import TableCell.TableActionCellEditor;
+import TableCell.TableActionEvent;
+import TableCell.TableCustomCellRenderer;
+import java.awt.Color;
+import java.awt.Dialog;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author ricas
+ * @author caioo
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaPrincipal
      */
-    
-    
+    private Produto objaluno;
+
     public TelaPrincipal() {
         initComponents();
+        TableActionEvent event = new TableActionEvent() {
+            @Override
+            public void onEdit(int row) {
+                System.out.print("edit" + row);
+                editaAluno(row);
+            }
+
+            @Override
+            public void onDelete(int row) {
+                if (jTable1.isEditing()) {
+                    jTable1.getCellEditor().stopCellEditing();
+                }
+                deletaAluno(row);
+            }
+        };
+        this.objaluno = new Produto();
+        jTable1.getColumnModel().getColumn(6).setCellRenderer(new TableCustomCellRenderer());
+        jTable1.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
+        carregaTabela();
+    }
+    
+    private void deletaAluno(int row) {                                         
+        try {
+            int id = Integer.parseInt(this.jTable1.getValueAt(row, 0).toString());
+            
+
+            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Aluno ?");
+
+            if (resposta_usuario == 0) {
+                if (this.objaluno.DeleteAlunoBD(id)) {
+                    JOptionPane.showMessageDialog(rootPane, "Aluno Apagado com Sucesso!");
+                }
+
+            }
+        } finally {
+            carregaTabela();
+        }
+    }
+    
+    private void editaAluno(int row) {                                         
+        try {
+            int id = Integer.parseInt(this.jTable1.getValueAt(row, 0).toString());
+            String nome = this.jTable1.getValueAt(row, 1).toString();
+            String descricao = this.jTable1.getValueAt(row, 2).toString();
+            String quantidade = this.jTable1.getValueAt(row, 3).toString();
+            String preco = this.jTable1.getValueAt(row, 4).toString();
+            String data = this.jTable1.getValueAt(row, 5).toString();
+            EditarProduto objeto = new EditarProduto();
+                
+            objeto.setCallBack(runnable);
+            objeto.setInitialFields(
+                    id,
+                    nome,
+                    descricao,
+                    quantidade,
+                    preco,
+                    data
+            );
+            objeto.setModal(true);
+            objeto.setVisible(true);
+        } finally {
+            carregaTabela();
+        }
     }
 
     /**
@@ -30,74 +101,117 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuBar3 = new javax.swing.JMenuBar();
-        jMenu8 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
-
-        jMenu3.setText("jMenu3");
-
-        jMenu4.setText("jMenu4");
-
-        jMenu5.setText("File");
-        jMenuBar2.add(jMenu5);
-
-        jMenu6.setText("Edit");
-        jMenuBar2.add(jMenu6);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Interface de Teste");
-        setBackground(new java.awt.Color(0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(1080, 500));
-        setMinimumSize(new java.awt.Dimension(500, 225));
-        setUndecorated(true);
+        setTitle("Cometela - Home");
+        setMinimumSize(new java.awt.Dimension(750, 400));
+        setPreferredSize(new java.awt.Dimension(900, 400));
 
-        jMenu8.setText("Adicionar produto");
-        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu8MouseClicked(evt);
+        jTable1.setForeground(java.awt.Color.darkGray);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "Descrição", "Quantidade", "Preço", "Data cadastro", "Gerenciar"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jMenuBar3.add(jMenu8);
+        jTable1.setRowHeight(50);
+        jTable1.setSelectionBackground(java.awt.Color.white);
+        jTable1.setSelectionForeground(java.awt.Color.darkGray);
+        jScrollPane1.setViewportView(jTable1);
 
-        jMenu7.setText("Gerenciar produtos");
-        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu7MouseClicked(evt);
+        jButton1.setBackground(java.awt.Color.green);
+        jButton1.setForeground(java.awt.Color.black);
+        jButton1.setText("Cadastrar produto");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        jMenuBar3.add(jMenu7);
 
-        setJMenuBar(jMenuBar3);
+        jMenu1.setText("Relatório");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 650, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(401, 401, 401)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(53, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 327, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(49, 49, 49)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
-        GerenciaProduto objeto = new GerenciaProduto();
-        objeto.setVisible(true);
-    }//GEN-LAST:event_jMenu7MouseClicked
-
-    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         CadastroProduto objeto = new CadastroProduto();
+        objeto.setCallBack(runnable);
+        objeto.setModal(true);
         objeto.setVisible(true);
-    }//GEN-LAST:event_jMenu8MouseClicked
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+        //    TODO
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        System.out.print("vim aqui");
+        this.setVisible(false);
+        Relatorio objetotela = new Relatorio();
+        objetotela.setVisible(true);
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -133,15 +247,38 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void carregaTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) this.jTable1.getModel();
+        modelo.setNumRows(0);
+
+        ArrayList<Produto> minhalista = new ArrayList<>();
+        minhalista = this.objaluno.getMinhaLista();
+
+        for (Produto a : minhalista) {
+            modelo.addRow(new Object[]{
+                a.getId(),
+                a.getNome(),
+                a.getDescricao(),
+                a.getQuantidade(),
+                a.getPreco(),
+                a.getData()
+            });
+        }
+    }
+    
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            carregaTabela(); // Chama o método que carrega a tabela
+        }
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuBar jMenuBar3;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

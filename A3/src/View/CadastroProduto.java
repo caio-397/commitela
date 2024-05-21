@@ -6,13 +6,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class CadastroProduto extends javax.swing.JFrame {
-
+public class CadastroProduto extends javax.swing.JDialog {
+    
+    private Runnable callback;
     private Produto objaluno; // cria o v�nculo com o Produto.java
 
     public CadastroProduto() {
         initComponents();
         this.objaluno = new Produto(); // carrega objeto vazio de aluno
+    }
+    
+    private void refreshCallback() {
+    if (this.callback != null) {
+        this.callback.run();
+    }
+}
+    
+    public void setCallBack(Runnable callback) {
+        this.callback = callback;
     }
 
     /**
@@ -77,6 +88,8 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        b_cadastrar.setBackground(java.awt.Color.green);
+        b_cadastrar.setForeground(java.awt.Color.black);
         b_cadastrar.setText("Cadastrar");
         b_cadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,6 +97,8 @@ public class CadastroProduto extends javax.swing.JFrame {
             }
         });
 
+        b_cancelar.setBackground(java.awt.Color.red);
+        b_cancelar.setForeground(java.awt.Color.white);
         b_cancelar.setText("Cancelar");
         b_cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,6 +260,7 @@ public class CadastroProduto extends javax.swing.JFrame {
             // envia os dados para o Controlador cadastrar
             if (this.objaluno.InsertAlunoBD(nome, descricao, quantidade, preco,  data)) {
                 JOptionPane.showMessageDialog(rootPane, "Aluno Cadastrado com Sucesso!");
+                this.refreshCallback();
 
                 // limpa campos da interface
                 this.c_nome.setText("");

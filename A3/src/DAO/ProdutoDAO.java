@@ -98,6 +98,36 @@ public class ProdutoDAO {
 
         return MinhaLista;
     }
+    
+    public ArrayList getMinhaListaOrderBy(String orderBy) {
+        
+        MinhaLista.clear(); // Limpa nosso ArrayList
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            System.out.print("SELECT * FROM tb_produtos ORDER BY" + orderBy);
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_produtos ORDER BY " + orderBy + " DESC");
+            while (res.next()) {
+
+                int quantidade = res.getInt("quantidade");
+                double preco = res.getDouble("preco");
+                int id = res.getInt("id");
+                String nome = res.getString("nome");
+                String descricao = res.getString("descricao");
+                String data = res.getString("data_cadastro");
+
+                Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data);
+
+                MinhaLista.add(objeto);
+            }
+
+            stmt.close();
+
+        } catch (SQLException ex) {
+        }
+
+        return MinhaLista;
+    }
 
     // Cadastra novo aluno
     public boolean InsertAlunoBD(Produto objeto) {
