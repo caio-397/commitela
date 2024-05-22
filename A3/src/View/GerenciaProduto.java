@@ -39,6 +39,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setTitle("Tabela de Produtos");
+        setAlwaysOnTop(true);
         setBounds(new java.awt.Rectangle(0, 0, 1200, 1200));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

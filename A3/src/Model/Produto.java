@@ -5,7 +5,7 @@ import DAO.ProdutoDAO;
 import java.sql.SQLException;
 
 public class Produto{
-
+// Exclui o extend dessa e fiz tudo em uma só --- apaga esse comentário dps so p n ficar feio
     private int id;
     private String nome;
     private String descricao;

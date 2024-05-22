@@ -74,7 +74,7 @@ public class ProdutoDAO {
     public ArrayList getMinhaLista() {
         
         MinhaLista.clear(); 
-
+// Aqui em que ver as tags ali que eu adicionnei so pra conectar com o banco de dados certinho, mas é so o total ali, adicionei como double
         try {
             Statement stmt = this.getConexao().createStatement();
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_produtos");

@@ -23,10 +23,10 @@ public class TelaMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -64,19 +64,6 @@ public class TelaMenu extends javax.swing.JFrame {
                 .addContainerGap(189, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Cadastrar Produtos");
-
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgens/cadastro.png"))); // NOI18N
-        jMenuItem1.setText("Novo Produto");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu1);
-
         jMenu3.setText("Gerência");
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgens/gerencia.png"))); // NOI18N
@@ -89,6 +76,19 @@ public class TelaMenu extends javax.swing.JFrame {
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu1.setText("Cadastrar Produtos");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imgens/cadastro.png"))); // NOI18N
+        jMenuItem1.setText("Novo Produto");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Mais");
         jMenu2.addActionListener(new java.awt.event.ActionListener() {
