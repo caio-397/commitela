@@ -44,10 +44,10 @@ public class ProdutoDAO {
             Class.forName(driver);
             // Configurar a conex�o
             String server = "localhost"; //caminho do MySQL
-            String database = "cometela";
+            String database = "db_produtos";
             String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
             String user = "root";
-            String password = "arthur88coelho";
+            String password = "defaultpwd";
 
             connection = DriverManager.getConnection(url, user, password);
 
@@ -70,7 +70,6 @@ public class ProdutoDAO {
         }
     }
 
-    // Retorna a Lista de produtos(objetos)
     public ArrayList getMinhaLista() {
         
         MinhaLista.clear(); // Limpa nosso ArrayList
@@ -85,9 +84,40 @@ public class ProdutoDAO {
                 int id = res.getInt("id");
                 String nome = res.getString("nome");
                 String descricao = res.getString("descricao");
-                String data = res.getString("data");
+                String data = res.getString("data_cadastro");
+                double total = preco * quantidade;
 
-                Produto objeto = new Produto(quantidade, preco, id, nome, descricao, data);
+                Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data, total);
+
+                MinhaLista.add(objeto);
+            }
+
+            stmt.close();
+
+        } catch (SQLException ex) {
+        }
+
+        return MinhaLista;
+    }
+    
+    public ArrayList getMinhaListaOrderBy(String orderBy) {
+        
+        MinhaLista.clear(); // Limpa nosso ArrayList
+
+        try {
+            Statement stmt = this.getConexao().createStatement();
+            ResultSet res = stmt.executeQuery("SELECT * FROM tb_produtos ORDER BY " + orderBy + " DESC");
+            while (res.next()) {
+
+                int quantidade = res.getInt("quantidade");
+                double preco = res.getDouble("preco");
+                int id = res.getInt("id");
+                String nome = res.getString("nome");
+                String descricao = res.getString("descricao");
+                String data = res.getString("data_cadastro");
+                double total = preco * quantidade;
+
+                Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data, total);
 
                 MinhaLista.add(objeto);
             }
@@ -100,9 +130,9 @@ public class ProdutoDAO {
         return MinhaLista;
     }
 
-    // Cadastra novo produto
-    public boolean InsertProdutoBD(Produto objeto) {
-        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data) VALUES(?,?,?,?,?,?)";
+    // Cadastra novo aluno
+    public boolean InsertAlunoBD(Produto objeto) {
+        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data_cadastro) VALUES(?,?,?,?,?,?)";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -125,8 +155,8 @@ public class ProdutoDAO {
 
     }
 
-    // Deleta um produto espec�fico pelo seu campo ID
-    public boolean DeleteProdutoBD(int id) {
+    // Deleta um aluno espec�fico pelo seu campo ID
+    public boolean DeleteAlunoBD(int id) {
         try {
             Statement stmt = this.getConexao().createStatement();
             stmt.executeUpdate("DELETE FROM tb_produtos WHERE id = " + id);
@@ -138,10 +168,10 @@ public class ProdutoDAO {
         return true;
     }
 
-    // Edita um produto espec�fico pelo seu campo ID
-    public boolean UpdateProdutoBD(Produto objeto) {
+    // Edita um aluno espec�fico pelo seu campo ID
+    public boolean UpdateAlunoBD(Produto objeto) {
 
-        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data = ? WHERE id = ?";
+        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data_cadastro = ? WHERE id = ?";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -164,7 +194,7 @@ public class ProdutoDAO {
 
     }
 
-    public Produto carregaProduto(int id) {
+    public Produto carregaAluno(int id) {
         
         Produto objeto = new Produto();
         objeto.setId(id);
@@ -178,7 +208,7 @@ public class ProdutoDAO {
             objeto.setDescricao(res.getString("descricao"));
             objeto.setQuantidade(res.getInt("quantidade"));
             objeto.setPreco(res.getDouble("preco"));
-            objeto.setData(res.getString("data"));
+            objeto.setData(res.getString("data_cadastro"));
 
             stmt.close();            
             

@@ -7,12 +7,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class GerenciaProduto extends javax.swing.JFrame {
 
-    private Produto objproduto; // cria o v�nculo com o objproduto
+    private Produto objaluno; // cria o v�nculo com o objaluno
 
     public GerenciaProduto() {
         initComponents();
-        jTableProduto.setAutoCreateRowSorter(true);//ordena tabela
-        this.objproduto = new Produto(); // carrega objproduto de produto
+        this.objaluno = new Produto(); // carrega objaluno de aluno
         this.carregaTabela();
     }
 
@@ -26,7 +25,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableProduto = new javax.swing.JTable();
+        jTableAlunos = new javax.swing.JTable();
         b_cancelar = new javax.swing.JButton();
         b_alterar = new javax.swing.JButton();
         b_apagar = new javax.swing.JButton();
@@ -44,7 +43,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
         setTitle("Gerenciamento de Alunos");
         setResizable(false);
 
-        jTableProduto.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -59,29 +58,22 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 "ID", "Nome", "Descricao", "Quatidade", "Preço", "Data"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jTableProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableAlunos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableProdutoMouseClicked(evt);
+                jTableAlunosMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableProduto);
-        if (jTableProduto.getColumnModel().getColumnCount() > 0) {
-            jTableProduto.getColumnModel().getColumn(0).setMinWidth(30);
+        jScrollPane1.setViewportView(jTableAlunos);
+        if (jTableAlunos.getColumnModel().getColumnCount() > 0) {
+            jTableAlunos.getColumnModel().getColumn(0).setMinWidth(30);
         }
 
         b_cancelar.setText("Cancelar");
@@ -131,24 +123,14 @@ public class GerenciaProduto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(c_data, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(b_cancelar)
-                        .addGap(46, 46, 46)
-                        .addComponent(b_apagar)
-                        .addGap(46, 46, 46)))
-                .addComponent(b_alterar)
-                .addGap(112, 112, 112))
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -168,9 +150,16 @@ public class GerenciaProduto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(c_nome)))
                         .addGap(165, 165, 165))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(26, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(c_data, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(b_cancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(b_alterar)))
+                        .addGap(18, 18, 18)
+                        .addComponent(b_apagar)
+                        .addGap(160, 160, 160))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,10 +237,10 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 preco = Double.parseDouble(this.c_preco.getText());
             }
 
-            if (this.jTableProduto.getSelectedRow() == -1) {
-                throw new Mensagens("Primeiro Selecione um Produto para Alterar");
+            if (this.jTableAlunos.getSelectedRow() == -1) {
+                throw new Mensagens("Primeiro Selecione um Aluno para Alterar");
             } else {
-                id = Integer.parseInt(this.jTableProduto.getValueAt(this.jTableProduto.getSelectedRow(), 0).toString());
+                id = Integer.parseInt(this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 0).toString());
             }
             if (this.c_data.getText().length() < 10) {
                 throw new Mensagens("ultilise o formato xx/xx/xxxx");
@@ -260,7 +249,7 @@ public class GerenciaProduto extends javax.swing.JFrame {
             }
             
             // envia os dados para o Produto processar
-            if (this.objproduto.UpdateProdutoBD(quantidade, preco, id, nome, descricao, data)) {
+            if (this.objaluno.UpdateAlunoBD(id, nome, descricao, quantidade, preco, data)) {
 
                 // limpa os campos
                 this.c_nome.setText("");
@@ -268,10 +257,10 @@ public class GerenciaProduto extends javax.swing.JFrame {
                 this.c_quantidade.setText("");
                 this.c_preco.setText("");
                 this.c_data.setText("");
-                JOptionPane.showMessageDialog(rootPane, "Produto Alterado com Sucesso!");
+                JOptionPane.showMessageDialog(rootPane, "Aluno Alterado com Sucesso!");
 
             }
-            System.out.println(this.objproduto.getMinhaLista().toString());
+            System.out.println(this.objaluno.getMinhaLista().toString());
         } catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
         } catch (NumberFormatException erro2) {
@@ -281,15 +270,15 @@ public class GerenciaProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_b_alterarActionPerformed
 
-    private void jTableProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutoMouseClicked
+    private void jTableAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlunosMouseClicked
 
-        if (this.jTableProduto.getSelectedRow() != -1) {
+        if (this.jTableAlunos.getSelectedRow() != -1) {
 
-            String nome = this.jTableProduto.getValueAt(this.jTableProduto.getSelectedRow(), 1).toString();
-            String descricao = this.jTableProduto.getValueAt(this.jTableProduto.getSelectedRow(), 2).toString();
-            String quantidade = this.jTableProduto.getValueAt(this.jTableProduto.getSelectedRow(), 3).toString();
-            String preco = this.jTableProduto.getValueAt(this.jTableProduto.getSelectedRow(), 4).toString();
-            String data = this.jTableProduto.getValueAt(this.jTableProduto.getSelectedRow(), 5).toString();
+            String nome = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 1).toString();
+            String descricao = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 2).toString();
+            String quantidade = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 3).toString();
+            String preco = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 4).toString();
+            String data = this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 5).toString();
 
             this.c_nome.setText(nome);
             this.c_descricao.setText(descricao);
@@ -298,25 +287,25 @@ public class GerenciaProduto extends javax.swing.JFrame {
             this.c_data.setText(data);
 
         }
-    }//GEN-LAST:event_jTableProdutoMouseClicked
+    }//GEN-LAST:event_jTableAlunosMouseClicked
 
     private void b_apagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_apagarActionPerformed
         try {
             // validando dados da interface gr�fica.
             int id = 0;
-            if (this.jTableProduto.getSelectedRow() == -1) {
-                throw new Mensagens("Primeiro Selecione um Produto para APAGAR");
+            if (this.jTableAlunos.getSelectedRow() == -1) {
+                throw new Mensagens("Primeiro Selecione um Aluno para APAGAR");
             } else {
-                id = Integer.parseInt(this.jTableProduto.getValueAt(this.jTableProduto.getSelectedRow(), 0).toString());
+                id = Integer.parseInt(this.jTableAlunos.getValueAt(this.jTableAlunos.getSelectedRow(), 0).toString());
             }
 
             // retorna 0 -> primeiro bot�o | 1 -> segundo bot�o | 2 -> terceiro bot�o
-            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Produto ?");
+            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Aluno ?");
 
             if (resposta_usuario == 0) {// clicou em SIM
 
                 // envia os dados para o Produto processar
-                if (this.objproduto.DeleteProdutoBD(id)) {
+                if (this.objaluno.DeleteAlunoBD(id)) {
 
                     // limpa os campos
                     this.c_nome.setText("");
@@ -324,13 +313,13 @@ public class GerenciaProduto extends javax.swing.JFrame {
                     this.c_quantidade.setText("");
                     this.c_preco.setText("");
                     this.c_data.setText("");
-                    JOptionPane.showMessageDialog(rootPane, "Produto Apagado com Sucesso!");
+                    JOptionPane.showMessageDialog(rootPane, "Aluno Apagado com Sucesso!");
 
                 }
 
             }
 
-            System.out.println(this.objproduto.getMinhaLista().toString());
+            System.out.println(this.objaluno.getMinhaLista().toString());
 
         } catch (Mensagens erro) {
             JOptionPane.showMessageDialog(null, erro.getMessage());
@@ -354,11 +343,11 @@ public class GerenciaProduto extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     public void carregaTabela() {
 
-        DefaultTableModel modelo = (DefaultTableModel) this.jTableProduto.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableAlunos.getModel();
         modelo.setNumRows(0);
 
         ArrayList<Produto> minhalista = new ArrayList<>();
-        minhalista = objproduto.getMinhaLista();
+        minhalista = this.objaluno.getMinhaLista();
 
         for (Produto a : minhalista) {
             modelo.addRow(new Object[]{
@@ -421,6 +410,6 @@ public class GerenciaProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableProduto;
+    private javax.swing.JTable jTableAlunos;
     // End of variables declaration//GEN-END:variables
 }
