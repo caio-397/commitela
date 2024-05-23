@@ -12,19 +12,46 @@ public class Produto {
     private String descricao;
     private double preco;
     private String data;
+    private double total;
     private final ProdutoDAO dao;
     
     public Produto() {
         this.dao = new ProdutoDAO();
     }
-
-    public Produto(int id, String nome, String descricao, int quantidade, double preco, String data){
+    
+    public Produto(
+            int id,
+            String nome,
+            String descricao,
+            int quantidade,
+            double preco,
+            String data
+    ){
         this.id = id;
         this.nome = nome;
         this.quantidade = quantidade;
         this.descricao = descricao;
         this.preco = preco;
         this.data = data;
+        this.dao = new ProdutoDAO();
+    }
+
+    public Produto(
+            int id,
+            String nome,
+            String descricao,
+            int quantidade,
+            double preco,
+            String data,
+            double total
+    ){
+        this.id = id;
+        this.nome = nome;
+        this.quantidade = quantidade;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.data = data;
+        this.total = total;
         this.dao = new ProdutoDAO();
     }
     
@@ -74,6 +101,10 @@ public class Produto {
 
     public void setData(String data) {
         this.data = data;
+    }
+    
+    public double getTotal() {
+        return this.total;
     }
 
     public String toString() {

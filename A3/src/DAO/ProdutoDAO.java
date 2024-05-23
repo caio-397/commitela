@@ -85,8 +85,9 @@ public class ProdutoDAO {
                 String nome = res.getString("nome");
                 String descricao = res.getString("descricao");
                 String data = res.getString("data_cadastro");
+                double total = preco * quantidade;
 
-                Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data);
+                Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data, total);
 
                 MinhaLista.add(objeto);
             }
@@ -105,7 +106,6 @@ public class ProdutoDAO {
 
         try {
             Statement stmt = this.getConexao().createStatement();
-            System.out.print("SELECT * FROM tb_produtos ORDER BY" + orderBy);
             ResultSet res = stmt.executeQuery("SELECT * FROM tb_produtos ORDER BY " + orderBy + " DESC");
             while (res.next()) {
 
@@ -115,8 +115,9 @@ public class ProdutoDAO {
                 String nome = res.getString("nome");
                 String descricao = res.getString("descricao");
                 String data = res.getString("data_cadastro");
+                double total = preco * quantidade;
 
-                Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data);
+                Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data, total);
 
                 MinhaLista.add(objeto);
             }

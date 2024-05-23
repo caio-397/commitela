@@ -21,28 +21,39 @@ public class Relatorio extends javax.swing.JFrame {
      */
     public Relatorio() {
         initComponents();
+        jTableAlunos.setAutoCreateRowSorter(true);
         this.objaluno = new Produto();
-        this.carregaTabela("id");
+        this.carregaTabela();
     }
     
-    public void carregaTabela(String orderBy) {
+    public void carregaTabela() {
 
         DefaultTableModel modelo = (DefaultTableModel) this.jTableAlunos.getModel();
         modelo.setNumRows(0);
 
         ArrayList<Produto> minhalista = new ArrayList<>();
-        minhalista = this.objaluno.getMinhaListaOrderBy(orderBy);
+        minhalista = this.objaluno.getMinhaLista();
+        
+        double soma_valor = 0;
+        int soma_esgotados = 0;
 
         for (Produto a : minhalista) {
+            soma_valor = soma_valor  + a.getTotal();
+            if (a.getQuantidade() <= 0) {
+                soma_esgotados = soma_esgotados + 1;
+            }
             modelo.addRow(new Object[]{
                 a.getId(),
                 a.getNome(),
                 a.getDescricao(),
                 a.getQuantidade(),
                 a.getPreco(),
-                a.getData()
+                a.getData(),
+                a.getTotal()
             });
         }
+        valorTtotal.setText(Double.toString(soma_valor));
+        produtosEsgotados.setText(Integer.toString(soma_esgotados));
     }
 
     /**
@@ -57,17 +68,15 @@ public class Relatorio extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         valorTtotal = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        orderBy = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableAlunos = new javax.swing.JTable();
+        produtosEsgotados = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(750, 400));
-        setPreferredSize(new java.awt.Dimension(900, 400));
+        setPreferredSize(new java.awt.Dimension(1023, 613));
 
         jLabel1.setText("Valor total do estoque:");
 
@@ -75,39 +84,23 @@ public class Relatorio extends javax.swing.JFrame {
 
         jLabel3.setText("Produtos esgotados:");
 
-        jLabel4.setText("0.00");
-
-        orderBy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "id", "quantidade", "preco" }));
-        orderBy.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                orderByItemStateChanged(evt);
-            }
-        });
-        orderBy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderByActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Ordenar por:");
-
         jTableAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Descricao", "Quatidade", "Preço", "Data"
+                "ID", "Nome", "Descricao", "Quatidade", "Preço", "Data", "Valor total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -121,6 +114,8 @@ public class Relatorio extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(jTableAlunos);
+
+        produtosEsgotados.setText("0");
 
         jMenu1.setText("Estoque");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,46 +137,34 @@ public class Relatorio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 395, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(26, 26, 26)
-                                .addComponent(jLabel4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(26, 26, 26)
-                                .addComponent(valorTtotal))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(orderBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(valorTtotal)
+                    .addComponent(produtosEsgotados))
+                .addGap(67, 67, 67))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderBy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(50, 50, 50)
+                .addGap(113, 113, 113)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(valorTtotal))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(81, 81, 81))
+                    .addComponent(produtosEsgotados))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,15 +180,6 @@ public class Relatorio extends javax.swing.JFrame {
         objetotela.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
-
-    private void orderByActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderByActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_orderByActionPerformed
-
-    private void orderByItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_orderByItemStateChanged
-        String getText = orderBy.getSelectedItem().toString();
-        this.carregaTabela(getText);
-    }//GEN-LAST:event_orderByItemStateChanged
 
     private void jTableAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlunosMouseClicked
 
@@ -250,13 +224,11 @@ public class Relatorio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableAlunos;
-    private javax.swing.JComboBox<String> orderBy;
+    private javax.swing.JLabel produtosEsgotados;
     private javax.swing.JLabel valorTtotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,6 +27,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     public TelaPrincipal() {
         initComponents();
+        jTable1.setAutoCreateRowSorter(true);
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
@@ -43,8 +44,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         };
         this.objaluno = new Produto();
-        jTable1.getColumnModel().getColumn(6).setCellRenderer(new TableCustomCellRenderer());
-        jTable1.getColumnModel().getColumn(6).setCellEditor(new TableActionCellEditor(event));
+        jTable1.getColumnModel().getColumn(7).setCellRenderer(new TableCustomCellRenderer());
+        jTable1.getColumnModel().getColumn(7).setCellEditor(new TableActionCellEditor(event));
         carregaTabela();
     }
     
@@ -110,25 +111,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cometela - Home");
         setMinimumSize(new java.awt.Dimension(750, 400));
-        setPreferredSize(new java.awt.Dimension(900, 400));
+        setPreferredSize(new java.awt.Dimension(1023, 613));
 
         jTable1.setForeground(java.awt.Color.darkGray);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Descrição", "Quantidade", "Preço", "Data cadastro", "Gerenciar"
+                "ID", "Nome", "Descrição", "Quantidade", "Preço", "Data cadastro", "Valor total", "Gerenciar"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -262,7 +263,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 a.getDescricao(),
                 a.getQuantidade(),
                 a.getPreco(),
-                a.getData()
+                a.getData(),
+                a.getTotal()
             });
         }
     }
