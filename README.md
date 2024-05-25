@@ -9,7 +9,7 @@ CREATE TABLE db_produtos.tb_produtos (
 	descricao varchar(100) NOT NULL,
 	quantidade INT NOT NULL,
 	preco DOUBLE NOT NULL,
-	`data` varchar(100) NOT NULL,
+	data_cadastro varchar(100) NOT NULL,
 	CONSTRAINT tb_produtos_pk PRIMARY KEY (id)
 )
 ENGINE=InnoDB
