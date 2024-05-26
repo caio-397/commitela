@@ -47,7 +47,7 @@ public class ProdutoDAO {
             String database = "db_produtos";
             String url = "jdbc:mysql://" + server + ":3306/" + database + "?useTimezone=true&serverTimezone=UTC";
             String user = "root";
-            String password = "defaultpwd";
+            String password = "jvsa250103";
 
             connection = DriverManager.getConnection(url, user, password);
 
@@ -84,7 +84,7 @@ public class ProdutoDAO {
                 int id = res.getInt("id");
                 String nome = res.getString("nome");
                 String descricao = res.getString("descricao");
-                String data = res.getString("data_cadastro");
+                String data = res.getString("data");
                 double total = preco * quantidade;
 
                 Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data, total);
@@ -114,7 +114,7 @@ public class ProdutoDAO {
                 int id = res.getInt("id");
                 String nome = res.getString("nome");
                 String descricao = res.getString("descricao");
-                String data = res.getString("data_cadastro");
+                String data = res.getString("data");
                 double total = preco * quantidade;
 
                 Produto objeto = new Produto(id, nome, descricao, quantidade, preco,  data, total);
@@ -132,7 +132,7 @@ public class ProdutoDAO {
 
     // Cadastra novo aluno
     public boolean InsertAlunoBD(Produto objeto) {
-        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data_cadastro) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO tb_produtos(id,nome,descricao,quantidade,preco,data) VALUES(?,?,?,?,?,?)";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -171,7 +171,7 @@ public class ProdutoDAO {
     // Edita um aluno espec�fico pelo seu campo ID
     public boolean UpdateAlunoBD(Produto objeto) {
 
-        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data_cadastro = ? WHERE id = ?";
+        String sql = "UPDATE tb_produtos set nome = ? ,descricao = ? ,quantidade = ? ,preco = ?, data = ? WHERE id = ?";
 
         try {
             PreparedStatement stmt = this.getConexao().prepareStatement(sql);
@@ -208,7 +208,7 @@ public class ProdutoDAO {
             objeto.setDescricao(res.getString("descricao"));
             objeto.setQuantidade(res.getInt("quantidade"));
             objeto.setPreco(res.getDouble("preco"));
-            objeto.setData(res.getString("data_cadastro"));
+            objeto.setData(res.getString("data"));
 
             stmt.close();            
             

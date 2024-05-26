@@ -121,18 +121,26 @@ public class EditarProduto extends javax.swing.JDialog {
                 .addContainerGap(244, Short.MAX_VALUE)
                 .addComponent(b_alterar)
                 .addGap(84, 84, 84))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(c_data, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(72, 72, 72)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(b_cancelar)
+                            .addContainerGap(252, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jLabel2)
                                         .addComponent(jLabel4)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel5))
+                                        .addComponent(jLabel3))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -144,19 +152,16 @@ public class EditarProduto extends javax.swing.JDialog {
                                     .addComponent(jLabel1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(c_nome)))
-                            .addContainerGap(89, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(c_data, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(b_cancelar)
-                                    .addGap(90, 90, 90)))
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(235, Short.MAX_VALUE)
+                .addContainerGap(179, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(c_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addComponent(b_alterar)
                 .addGap(42, 42, 42))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,11 +182,7 @@ public class EditarProduto extends javax.swing.JDialog {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(c_preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(c_data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
-                    .addGap(34, 34, 34)
+                    .addGap(68, 68, 68)
                     .addComponent(b_cancelar)
                     .addGap(43, 43, 43)))
         );
@@ -242,7 +243,7 @@ public class EditarProduto extends javax.swing.JDialog {
 
             // envia os dados para o Produto processar
             if (this.objaluno.UpdateAlunoBD(id, nome, descricao, quantidade, preco, data)) {
-                JOptionPane.showMessageDialog(rootPane, "Aluno Alterado com Sucesso!");
+                JOptionPane.showMessageDialog(rootPane, "Produto Alterado com Sucesso!");
                 this.setVisible(false);
             }
             System.out.println(this.objaluno.getMinhaLista().toString());

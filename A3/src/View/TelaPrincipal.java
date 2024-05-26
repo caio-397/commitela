@@ -11,7 +11,9 @@ import TableCell.TableCustomCellRenderer;
 import java.awt.Color;
 import java.awt.Dialog;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +30,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         jTable1.setAutoCreateRowSorter(true);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        jTable1.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        jTable1.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+        jTable1.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+        jTable1.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+        jTable1.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
+        jTable1.getColumnModel().getColumn(5).setCellRenderer( centerRenderer );
+        jTable1.getColumnModel().getColumn(6).setCellRenderer( centerRenderer );
         TableActionEvent event = new TableActionEvent() {
             @Override
             public void onEdit(int row) {
@@ -54,11 +65,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
             int id = Integer.parseInt(this.jTable1.getValueAt(row, 0).toString());
             
 
-            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Aluno ?");
+            int resposta_usuario = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja APAGAR este Produto ?");
 
             if (resposta_usuario == 0) {
                 if (this.objaluno.DeleteAlunoBD(id)) {
-                    JOptionPane.showMessageDialog(rootPane, "Aluno Apagado com Sucesso!");
+                    JOptionPane.showMessageDialog(rootPane, "Produto Apagado com Sucesso!");
                 }
 
             }
@@ -109,13 +120,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Cometela - Home");
+        setTitle("Menu");
         setMinimumSize(new java.awt.Dimension(750, 400));
-        setPreferredSize(new java.awt.Dimension(1023, 613));
 
         jTable1.setForeground(java.awt.Color.darkGray);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -144,6 +155,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTable1.setSelectionBackground(java.awt.Color.white);
         jTable1.setSelectionForeground(java.awt.Color.darkGray);
         jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setMinWidth(40);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
+            jTable1.getColumnModel().getColumn(3).setMinWidth(80);
+            jTable1.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTable1.getColumnModel().getColumn(4).setMinWidth(60);
+            jTable1.getColumnModel().getColumn(4).setMaxWidth(60);
+            jTable1.getColumnModel().getColumn(6).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(6).setMaxWidth(90);
+            jTable1.getColumnModel().getColumn(7).setMinWidth(90);
+            jTable1.getColumnModel().getColumn(7).setMaxWidth(90);
+        }
 
         jButton1.setBackground(java.awt.Color.green);
         jButton1.setForeground(java.awt.Color.black);
@@ -174,7 +197,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(401, 401, 401)
+                .addGap(405, 405, 405)
                 .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -187,9 +210,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(49, 49, 49)
+                .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addGap(57, 57, 57))
         );
 
         pack();
