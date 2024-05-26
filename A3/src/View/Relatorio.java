@@ -6,6 +6,7 @@ package View;
 
 import Model.Produto;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,14 +22,23 @@ public class Relatorio extends javax.swing.JFrame {
      */
     public Relatorio() {
         initComponents();
-        jTableAlunos.setAutoCreateRowSorter(true);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( jLabel1.CENTER );
+        jTableProduto.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        jTableProduto.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+        jTableProduto.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+        jTableProduto.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+        jTableProduto.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
+        jTableProduto.getColumnModel().getColumn(5).setCellRenderer( centerRenderer );
+        jTableProduto.getColumnModel().getColumn(6).setCellRenderer( centerRenderer );
+        jTableProduto.setAutoCreateRowSorter(true);
         this.objaluno = new Produto();
         this.carregaTabela();
     }
     
     public void carregaTabela() {
 
-        DefaultTableModel modelo = (DefaultTableModel) this.jTableAlunos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) this.jTableProduto.getModel();
         modelo.setNumRows(0);
 
         ArrayList<Produto> minhalista = new ArrayList<>();
@@ -69,22 +79,29 @@ public class Relatorio extends javax.swing.JFrame {
         valorTtotal = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableAlunos = new javax.swing.JTable();
+        jTableProduto = new javax.swing.JTable();
         produtosEsgotados = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Relatório");
         setMinimumSize(new java.awt.Dimension(750, 400));
-        setPreferredSize(new java.awt.Dimension(1023, 613));
+        getContentPane().setLayout(null);
 
         jLabel1.setText("Valor total do estoque:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(260, 220, 140, 16);
 
         valorTtotal.setText("0.00");
+        getContentPane().add(valorTtotal);
+        valorTtotal.setBounds(400, 220, 70, 16);
 
         jLabel3.setText("Produtos esgotados:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(260, 270, 130, 16);
 
-        jTableAlunos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -96,7 +113,7 @@ public class Relatorio extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Descricao", "Quatidade", "Preço", "Data", "Valor total"
+                "ID", "Nome", "Descricao", "Quantidade", "Preço", "Data", "Valor total"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -107,15 +124,20 @@ public class Relatorio extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableAlunos.setRowHeight(50);
-        jTableAlunos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableProduto.setRowHeight(50);
+        jTableProduto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableAlunosMouseClicked(evt);
+                jTableProdutoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableAlunos);
+        jScrollPane1.setViewportView(jTableProduto);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(90, 50, 565, 133);
 
         produtosEsgotados.setText("0");
+        getContentPane().add(produtosEsgotados);
+        produtosEsgotados.setBounds(390, 270, 50, 16);
 
         jMenu1.setText("Estoque");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,41 +154,6 @@ public class Relatorio extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 395, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(valorTtotal)
-                    .addComponent(produtosEsgotados))
-                .addGap(67, 67, 67))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(valorTtotal))
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(produtosEsgotados))
-                .addContainerGap(106, Short.MAX_VALUE))
-        );
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -181,9 +168,9 @@ public class Relatorio extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jMenu1MouseClicked
 
-    private void jTableAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlunosMouseClicked
+    private void jTableProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProdutoMouseClicked
 
-    }//GEN-LAST:event_jTableAlunosMouseClicked
+    }//GEN-LAST:event_jTableProdutoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -227,7 +214,7 @@ public class Relatorio extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableAlunos;
+    private javax.swing.JTable jTableProduto;
     private javax.swing.JLabel produtosEsgotados;
     private javax.swing.JLabel valorTtotal;
     // End of variables declaration//GEN-END:variables

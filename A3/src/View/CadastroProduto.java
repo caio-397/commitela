@@ -53,7 +53,7 @@ public class CadastroProduto extends javax.swing.JDialog {
 
         jLabel5.setText("Preço");
 
-        setTitle("Cadastro de Aluno");
+        setTitle("Cadastro de Produto");
         setResizable(false);
 
         jLabel1.setText("Nome:");
@@ -64,7 +64,7 @@ public class CadastroProduto extends javax.swing.JDialog {
             }
         });
 
-        jLabel2.setText("Descrição");
+        jLabel2.setText("Descrição:");
 
         c_descricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +72,7 @@ public class CadastroProduto extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Quantiidade");
+        jLabel3.setText("Quantidade:");
 
         c_quantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +80,7 @@ public class CadastroProduto extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText("Preço");
+        jLabel4.setText("Preço:");
 
         c_preco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +106,7 @@ public class CadastroProduto extends javax.swing.JDialog {
             }
         });
 
-        jLabel8.setText("Data");
+        jLabel8.setText("Data:");
 
         c_data.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,7 +259,7 @@ public class CadastroProduto extends javax.swing.JDialog {
 
             // envia os dados para o Controlador cadastrar
             if (this.objaluno.InsertAlunoBD(nome, descricao, quantidade, preco,  data)) {
-                JOptionPane.showMessageDialog(rootPane, "Aluno Cadastrado com Sucesso!");
+                JOptionPane.showMessageDialog(rootPane, "Produto Cadastrado com Sucesso!");
                 this.refreshCallback();
 
                 // limpa campos da interface
